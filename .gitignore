@@ -1,2 +1,4 @@
 ﻿.idea
 *.pyc
+*.db
+*.sqlte3
