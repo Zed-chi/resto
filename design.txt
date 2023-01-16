@@ -1,0 +1,19 @@
+roles:
+	admin
+	cook
+	waiter
+	guest_user
+	logged_user
+
+views:
+	admin: all
+	cook:
+		orders, receipts
+	waiter:
+		ordering, menu
+	guest_user
+		menu, log, 
+	logged_user
+		menu, pay
+	info:
+		waitlist
