@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form action="/orders/new/{{order.table.number}}" method="post" id="order-form">
+		<input type="hidden" name="items-TOTAL_FORMS" value="1" id="id_items-TOTAL_FORMS">
+		{% csrf_token %}
+		
+		{% for field in formset.hidden_fields %}
+					{{field}}
+		{% endfor %}
+		{{ purchaseorderdetail.management_form }}
+
+		{% for form in formset %}
+			<fieldset>
+
+				<legend>qwe</legend>
+				{% for field in form.visible_fields %}
+					{{field}}
+				{% endfor %}
+				{% for field in form.hidden_fields %}
+						{{field}}
+				{% endfor %}
+				{{ field.errors.as_ul }}
+			</fieldset>
+		{% endfor %}
+		<input type="submit" value="save" name="">
+	</form>
+	<button id="adder">
+		Add order Item
+	</button>
+	<p>
+
+	</p>
+
+<script>
+var adder = document.getElementById("adder");
+var form = document.querySelector("form")
+var subBtn = document.querySelector("form > input[type=submit]");
+
+adder.addEventListener("click", function(){
+	var fieldsets = document.querySelectorAll("form fieldset");
+	var newFieldset = fieldsets[0].cloneNode(true);
+	var menu_item = newFieldset.querySelector("select");
+	menu_item.setAttribute("id", `id_items-${fieldsets.length}-menu_item`);
+	var notes = newFieldset.querySelector("textarea");
+	notes.setAttribute("id", `id_items-${fieldsets.length}-notes`);
+	var quantity = newFieldset.querySelector("input");
+	quantity.setAttribute("id", `id_items-${fieldsets.length}-quantity`);			
+	form.insertBefore(newFieldset, subBtn);
+})
+
+</script>
+{% endblock %}
+
