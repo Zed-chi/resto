@@ -3,5 +3,12 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path("", views.index),
+    path("", views.order_items_list, name="order_items_list"),
+    path("recipe/<int:pk>", views.recipe_detail, name="recipe_detail"),
+    path(
+        "items/<int:pk>/got_cooked/",
+        views.order_item_cooked,
+        name="item_finished",
+    ),
+    path("items/<int:pk>/", views.order_item_detail, name="item_detail"),
 ]
