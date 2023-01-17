@@ -39,7 +39,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.CharField(max_length=255)),
-                ("weight", models.DecimalField(decimal_places=3, max_digits=6)),
+                (
+                    "weight",
+                    models.DecimalField(decimal_places=3, max_digits=6),
+                ),
             ],
         ),
         migrations.CreateModel(
@@ -101,7 +104,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("by_weight", models.DecimalField(decimal_places=3, max_digits=6)),
+                (
+                    "by_weight",
+                    models.DecimalField(decimal_places=3, max_digits=6),
+                ),
                 (
                     "ingredient",
                     models.ForeignKey(
