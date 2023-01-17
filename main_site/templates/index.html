@@ -6,4 +6,26 @@ index
 
 {% block content %}
 index
+
+
+{% for menu in menus %}
+<figure>
+	<legend>{{menu.title}}</legend>
+	{% for category in menu.categories %}	
+	<span>{{category.title}}</span>
+	<ul>
+		{% for item in category %}
+		<li>
+			<a href="">
+				<img src="{{item.image}}">
+				<i>{{item.title}}</i>
+			</a>
+			
+		</li>
+		{% endfor %}
+	</ul>
+	<hr>
+	{% endfor %}	
+</figure>
+{% endfor %}	
 {% endblock %}

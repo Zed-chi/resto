@@ -1,0 +1,26 @@
+{% extends "base.html"  %}
+
+{% block title %}
+cook				
+{% endblock %}
+
+{% block content %}
+<p>{{recipe.title}}</p>
+<picture>
+	{{recipe.result_picture}}
+</picture>
+<ul>
+	{% for step in recipe.steps %}
+		<li>
+			<cite>
+				{{step.description}}
+			</cite>
+			<picture>
+				{{step.image}}				
+			</picture>
+		</li>
+	{% endfor %}
+</ul>
+
+
+{% endblock %}

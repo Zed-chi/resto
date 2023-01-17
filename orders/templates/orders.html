@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<a href="">Все заказы</a>
-	<a href="">Создать новый</a>
-	<a href="">Лист ожидания</a>
+	<a href="./all">Все заказы</a>	
+	<a href="./waitlist">Лист ожидания</a>
+
+	<figure>
+		<legend>Создать заказ</legend>
+		{% for table in tables %}
+			<a href="/orders/new/{{table.id}}">Создать новый для {{table.number}}</a>
+		{% endfor %}		
+	</figure>
 {% endblock %}
