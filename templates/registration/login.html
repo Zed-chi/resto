@@ -10,7 +10,7 @@ users
 			Вход на сайт
 		</div>
 		<div class="card-body">
-			<form action="/users/login" method="post">
+			<form action="/users/login/" method="post">
 				{% csrf_token %}
 
 				{{form.as_p}}
@@ -21,7 +21,7 @@ users
 			<a href="/users/register">
 				Зарегистрироваться
 			</a>
-			<a href="/users/reset">
+			<a href="/users/password_reset">
 				Забыли пароль?
 			</a>
 		</div>
