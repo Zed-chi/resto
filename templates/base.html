@@ -33,30 +33,18 @@
 			<ul class="nav nav-pills nav-justified">
 				<li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
 
+				{% if request.user.is_cook or request.user.is_admin%}
+				<li class="nav-item"><a class="nav-link"  href="/cooks">Кухня</a></li>
+				{% endif %}
 
+				{% if request.user.is_waiter or request.user.is_admin %}
+				<li class="nav-item"><a class="nav-link"  href="/orders">Заказы</a></li>
+				{% endif %}
 
-	{% if request.user.is_cook or request.user.is_admin%}
-	<li class="nav-item"><a class="nav-link"  href="/cooks">Кухня</a></li>
-	{% endif %}
-
-	{% if request.user.is_waiter or request.user.is_admin %}
-	<li class="nav-item"><a class="nav-link"  href="/orders">Заказы</a></li>
-	{% endif %}
-
-	{% if request.user.is_admin %}
-	<li class="nav-item"><a class="nav-link" href="/admin">Администрирование</a></li>
-	{% endif %}
-
+				{% if request.user.is_admin %}
+				<li class="nav-item"><a class="nav-link" href="/admin">Администрирование</a></li>
+				{% endif %}
 				
-
-
-
-								
-
-
-
-				
-
 				{% if request.user.is_authenticated%}					
 					<div class="nav-item dropdown">
 						<button type="button" 
@@ -70,7 +58,7 @@
 					</div> 
 					
 				{% else %}
-					<li class="nav-item"><a class="nav-link"  href="/users/login">Вход</a></li>
+					<li class="nav-item"><a class="nav-link"  href="/users/login/">Вход</a></li>
 				{% endif %}
 			</ul>
 		</nav>
