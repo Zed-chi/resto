@@ -1,11 +1,20 @@
 body{
 	margin:0;
-	background: linear-gradient(yellow,green);
+	background: linear-gradient(to bottom, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
 	width: 100vw;
 	min-height: 100vh;
 	height:100%
 }
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 
+table{
+	width:100%;
+	font-size: 1.5vw;
+	text-align: center;
+}
 .container{
 	margin:0px auto;
 	min-width: 720px;
@@ -14,38 +23,57 @@ body{
 
 nav {
 	height: 50px;
-	background: gray;
-}
-nav ul{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 0;
-	padding:0;
-	height: 100%;
-}
 
-nav ul li{
-	text-decoration: none;
-	display: block;
-	height: 100%;
 }
 
 nav li a{
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	background: pink;
-	padding: 0 20px;
+	color: white;
 }
 
 .full_width{
 	width: 100%;
 }
 
-.btn{
-	padding: 10px;
-	border-radius: 10px;
-	background: linear-gradient(gray,white);
+
+
+.room-tables{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.room-tables a{
+    user-select: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #41616d;
+    font-size: 2em;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Tahoma";
+    height:50px;
+    width:50px;
+    margin:5px;
+    border-radius: 5px;
+    background: radial-gradient(ellipse at center, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
+}
+
+.order-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.order-items a{
+    user-select: none;
+    text-align:left;    
+    color: #41616d;
+    font-size: 2em;
+    text-decoration: none;    
+    font-family: "Tahoma";
+    width:100%;
+    margin:5px;
+    border-radius: 5px;
+    background: radial-gradient(ellipse at center, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
 }
