@@ -8,12 +8,12 @@ from .models import Order, OrderItem
 
 def index(req):
     tables = RoomTable.objects.all()
-    return render(req, "index.html", {"tables": tables})
+    return render(req, "orders/index.html", {"tables": tables})
 
 
 def waitlist(req):
     orders = Order.objects.filter(is_completed=False, is_draft=False)
-    return render(req, "waitlist.html", {"orders": orders})
+    return render(req, "orders/waitlist.html", {"orders": orders})
 
 
 def table_orders_list(req, table_id):
@@ -29,7 +29,7 @@ def table_orders_list(req, table_id):
         "order_form": order_form,
         "item_form": item_form,
     }
-    return render(req, "table_orders.html", context=context)
+    return render(req, "orders/table_orders.html", context=context)
 
 
 def order_item_create(req, order_id):
