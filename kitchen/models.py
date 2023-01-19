@@ -1,14 +1,36 @@
 from django.db import models
 
 
-class Dish(models.Model):
+class Menu(models.Model):
     title = models.CharField(max_length=255)
-
-    def get_total_callories(self):
-        pass
 
     def __str__(self):
         return self.title
+
+
+class MenuCategory(models.Model):
+    title = models.CharField(max_length=255)
+    menu = models.ForeignKey(
+        Menu, on_delete=models.CASCADE, related_name="categories"
+    )
+
+    def __str__(self):
+        return f"{self.menu.title} - {self.title}"
+
+
+class Dish(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.ForeignKey(
+        MenuCategory, on_delete=models.CASCADE, related_name="items"
+    )
+    price = models.DecimalField(decimal_places=2, max_digits=10, default=1)
+    is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.category.title} - {self.dish.title}"
+
+    def get_total_callories(self):
+        pass
 
 
 class Ingredient(models.Model):

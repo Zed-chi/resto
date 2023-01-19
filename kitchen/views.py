@@ -23,4 +23,6 @@ def order_item_detail(request, pk):
 
 def order_item_cooked(request, pk):
     item = get_object_or_404(OrderItem, pk=pk)
-    return render(request, "cook/recipe.html", {"recipe": recipe})
+    item.status = "4"
+    item.save()
+    return redirect("order_items_list")
