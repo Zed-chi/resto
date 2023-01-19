@@ -19,7 +19,7 @@ cook
 			<td>{{item.menu_item.title}}</td>
 			<td>{{item.menu_item.notes}}</td>
 			<td>{{item.quantity}}</td>
-			<td><button><a href="">Рецепт</a></button></td>
+			<td><button><a href="/cooks/recipe/{{item.menu_item.dish.recipe}}">Рецепт</a></button></td>
 			<td><button><a href="">Готов</a></button></td>
 		</tr>
 		{% endfor %}
