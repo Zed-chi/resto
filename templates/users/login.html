@@ -1,0 +1,34 @@
+{% extends "base.html"  %}
+
+{% block title %}
+users
+{% endblock %}
+
+{% block content %}
+	<div class="card">
+		<div class="card-header">
+			Вход на сайт
+		</div>
+		<div class="card-body">
+			{% if form.errors %}
+				{{form.errors}}
+			{% endif %}
+			<form action="/users/login" method="post">
+				{% csrf_token %}
+
+				{{form.as_p}}
+				<input type="submit" class="form-control 
+				btn-primary" value="Войти">				
+				<input type="hidden" name="next" value={{next}} />				
+			</form>
+		</div>
+		<div class="card-footer">
+			<a href="/users/register">
+				Зарегистрироваться
+			</a>
+			<a href="/users/reset">
+				Забыли пароль?
+			</a>
+		</div>
+	</div>		
+{% endblock %}

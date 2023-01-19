@@ -1,0 +1,27 @@
+{% extends "base.html"  %}
+
+{% block title %}
+users
+{% endblock %}
+
+{% block content %}
+	{{request.user}}
+	<hr>
+	{{request.user.groups.all}}
+
+	
+	{% if request.user.is_cook %}
+	is_cook
+	{% endif %}
+
+	{% if request.user.is_waiter %}
+	is_waiter
+	{% endif %}
+
+	{% if request.user.is_admin %}
+	is_admin
+	{% endif %}
+
+	<hr>
+	{{request.user.group_set}}
+{% endblock %}

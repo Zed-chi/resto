@@ -1,0 +1,27 @@
+{% extends "base.html"  %}
+
+{% block title %}
+cook				
+{% endblock %}
+
+{% block content %}
+	<ul>
+		{% for order in orders %}
+			<li>
+				<ul>
+					{% for item in order.items %}
+					<li>
+						<p>
+							<b>{{item.title}}</b>
+							<p>{{item.description}}</p>
+							<button><a href="">Готов</a></button>
+							<button><a href="">Рецепт</a></button>
+						</p>
+					</li>
+					{% endfor %}	
+				</ul>
+				
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
