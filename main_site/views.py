@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Menu
+from kitchen.models import Menu
 
 
 # Create your views here.

@@ -10,9 +10,9 @@ class OrderItemForm(forms.ModelForm):
 
     class Meta:
         model = OrderItem
-        fields = ["menu_item", "notes", "quantity"]
+        fields = ["dish", "notes", "quantity"]
         widgets = {
-            "menu_item": forms.Select(attrs={"class": "form-control"}),
+            "dish": forms.Select(attrs={"class": "form-control"}),
             "notes": forms.Textarea(
                 attrs={"class": "form-control", "rows": "2"}
             ),

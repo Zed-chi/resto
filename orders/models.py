@@ -1,6 +1,7 @@
 from django.db import models
 
-from main_site.models import MenuItem, RoomTable
+from kitchen.models import Dish
+from main_site.models import RoomTable
 
 
 class Order(models.Model):
@@ -35,8 +36,8 @@ class OrderItem(models.Model):
         ("5", "delivered"),
     ]
     price = models.DecimalField(decimal_places=2, max_digits=10)
-    menu_item = models.ForeignKey(
-        MenuItem, on_delete=models.CASCADE, related_name="order_items"
+    dish = models.ForeignKey(
+        Dish, on_delete=models.CASCADE, related_name="order_items"
     )
     order = models.ForeignKey(
         Order, on_delete=models.CASCADE, related_name="items"

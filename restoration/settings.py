@@ -29,9 +29,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "users.User"
+LOGIN_REDIRECT_URL = "main"
+LOGIN_URL = "users/login/"
+LOGOUT_URL = "users/logout/"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 # Application definition
-
+APPEND_SLASH = False
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -41,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "orders",
-    "cookery",
+    "kitchen",
     "main_site",
 ]
 
