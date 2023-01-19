@@ -5,7 +5,24 @@ cook
 {% endblock %}
 
 {% block content %}
-	{% for item in items %}
-		{{item}}
-	{% endfor %}
-{% endblock %}
+<table class="table-striped">
+	<thead>
+		<th>Название</th>
+		<th>Предпочтение</th>
+		<th>Количество</th>
+		<th>Справка</th>
+		<th>Отдать</th>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<td>{{item.menu_item.title}}</td>
+			<td>{{item.menu_item.notes}}</td>
+			<td>{{item.quantity}}</td>
+			<td><button><a href="">Рецепт</a></button></td>
+			<td><button><a href="">Готов</a></button></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}      
