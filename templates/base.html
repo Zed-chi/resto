@@ -24,18 +24,54 @@
 	  font-family: 'Old Standard';	  
 	  src: url("{% static 'OldStandartTT-Regular.ttf' %}")  format('truetype');
 	}
-	</style>
-	
+	</style>	
 </head>
 <body>
 
-	<header>
+	<header class="mb-3">
 		<nav class=".container-md bg-primary ">
 			<ul class="nav nav-pills nav-justified">
-				<li class="nav-item"><a class="nav-link" href="/admin">admin</a></li>
-				<li class="nav-item"><a class="nav-link"  href="/orders">orders<span class="badge badge-light">4</span></a></li>
-				<li class="nav-item"><a class="nav-link"  href="/users">users</a></li>
-				<li class="nav-item"><a class="nav-link"  href="/cooks">cookery</a></li>
+				<li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+
+
+
+	{% if request.user.is_cook or request.user.is_admin%}
+	<li class="nav-item"><a class="nav-link"  href="/cooks">Кухня</a></li>
+	{% endif %}
+
+	{% if request.user.is_waiter or request.user.is_admin %}
+	<li class="nav-item"><a class="nav-link"  href="/orders">Заказы</a></li>
+	{% endif %}
+
+	{% if request.user.is_admin %}
+	<li class="nav-item"><a class="nav-link" href="/admin">Администрирование</a></li>
+	{% endif %}
+
+				
+
+
+
+								
+
+
+
+				
+
+				{% if request.user.is_authenticated%}					
+					<div class="nav-item dropdown">
+						<button type="button" 
+						class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						{{request.user.email}}
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item"  href="/users/profile">Профиль</a>
+							<a class="dropdown-item"  href="/users/logout">Выйти</a>
+						</div>
+					</div> 
+					
+				{% else %}
+					<li class="nav-item"><a class="nav-link"  href="/users/login">Вход</a></li>
+				{% endif %}
 			</ul>
 		</nav>
 	</header>
