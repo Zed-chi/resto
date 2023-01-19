@@ -38,13 +38,15 @@ class MenuCategory(models.Model):
 
 
 class MenuItem(models.Model):
-    title = models.CharField(max_length=255)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
     category = models.ForeignKey(
         MenuCategory, on_delete=models.CASCADE, related_name="items"
     )
     price = models.DecimalField(decimal_places=2, max_digits=10)
-    is_available = models.BooleanField(default=False)
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.category.id} - {self.title}"
+        return f"{self.category.title} - {self.dish.title}"
+
+    def title(self):
+        return self.dish.title
