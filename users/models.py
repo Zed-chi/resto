@@ -44,3 +44,17 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def is_cook(self):
+        return self.groups.filter(name="Cooks").exists()
+
+    def is_admin(self):
+        return self.groups.filter(name="Admins").exists()
+
+    def is_waiter(self):
+        return self.groups.filter(name="Waiters").exists()
+
+    def get_starred_email(self):
+        name, tail = self.email.split("@")
+        host, dom = tail.split(".")
+        return f"{name[:2]}***@{host[:2]}***.{dom}"
