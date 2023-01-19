@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}		
+	<a href="./waitlist">Лист ожидания</a>	
+    <fieldset class="room-tables jumbotron">
+        <legend>Room tables</legend>
+        {% for table in tables %}
+			<a href="/orders/table/{{table.id}}">{{table.number}}</a>
+		{% endfor %}        
+    </fieldset>
+{% endblock %}
