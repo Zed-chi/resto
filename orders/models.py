@@ -8,6 +8,7 @@ class Order(models.Model):
         RoomTable, on_delete=models.CASCADE, related_name="orders"
     )
     is_completed = models.BooleanField(default=False)
+    is_draft = models.BooleanField(default=True)
 
     def price(self):
         return sum(map(lambda x: x.price * x.quantity, self.items))
@@ -17,17 +18,21 @@ class OrderItem(models.Model):
     STATUSES = [
         (
             "1",
-            "waiting",
+            "draft",
         ),
         (
             "2",
-            "cooking",
+            "waiting",
         ),
         (
             "3",
+            "cooking",
+        ),
+        (
+            "4",
             "finished",
         ),
-        ("4", "delivered"),
+        ("5", "delivered"),
     ]
     price = models.DecimalField(decimal_places=2, max_digits=10)
     menu_item = models.ForeignKey(
@@ -38,4 +43,5 @@ class OrderItem(models.Model):
     )
     notes = models.TextField(null=True, blank=True)
     status = models.CharField(choices=STATUSES, max_length=50, default="1")
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
