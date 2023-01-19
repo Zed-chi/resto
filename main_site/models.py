@@ -1,7 +1,5 @@
 from django.db import models
 
-from kitchen.models import Dish
-
 
 class Room(models.Model):
     title = models.CharField(max_length=255)

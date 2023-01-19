@@ -1,6 +1,4 @@
 from django import forms
-from django.forms import (BaseInlineFormSet, inlineformset_factory,
-                          modelformset_factory)
 
 from .models import Order, OrderItem
 
