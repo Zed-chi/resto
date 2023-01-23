@@ -27,13 +27,14 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "main"
 LOGIN_URL = "users/login/"
 LOGOUT_URL = "users/logout/"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+DEFAULT_MINUTES_TO_COOK = 30
 
 # Application definition
 APPEND_SLASH = False
@@ -79,7 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "restoration.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
