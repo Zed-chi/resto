@@ -34,15 +34,15 @@
 				<li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
 
 				{% if request.user.is_cook or request.user.is_admin%}
-				<li class="nav-item"><a class="nav-link"  href="/cooks">Кухня</a></li>
+				<li class="nav-item"><a class="nav-link"  href="/kitchen/">Кухня</a></li>
 				{% endif %}
 
 				{% if request.user.is_waiter or request.user.is_admin %}
-				<li class="nav-item"><a class="nav-link"  href="/orders">Заказы</a></li>
+				<li class="nav-item"><a class="nav-link"  href="/orders/">Заказы</a></li>
 				{% endif %}
 
 				{% if request.user.is_admin %}
-				<li class="nav-item"><a class="nav-link" href="/admin">Администрирование</a></li>
+				<li class="nav-item"><a class="nav-link" href="/admin/">Администрирование</a></li>
 				{% endif %}
 				
 				{% if request.user.is_authenticated%}					
@@ -52,8 +52,8 @@
 						{{request.user.email}}
 						</button>
 						<div class="dropdown-menu">
-							<a class="dropdown-item"  href="/users/profile">Профиль</a>
-							<a class="dropdown-item"  href="/users/logout">Выйти</a>
+							<a class="dropdown-item"  href="/users/profile/">Профиль</a>
+							<a class="dropdown-item"  href="/users/logout/">Выйти</a>
 						</div>
 					</div> 
 					
