@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}	
+	<div class="card">
+	  	<div class="card-header">
+	  		Оплата заказа {{order.id}}
+	  	</div>
+
+  		<div class="card-body">
+  			qr-код
+  			Для оплаты картой
+  		</div>
+
+  		<div class="card-footer">
+  			<form action="/orders/{{order.id}}/pay" method="post">
+  				{% csrf_token %}
+  				<input type="submit" value="Оплата наличными">
+  				
+  			</form>  			  			
+  		</div>
+	</div>	
+{% endblock %}
