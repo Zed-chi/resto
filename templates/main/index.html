@@ -1,7 +1,7 @@
 {% extends "base.html"  %}
 
 {% block title %}
-index
+Меню блюд ресторана
 {% endblock %}
 
 {% block content %}
@@ -15,8 +15,8 @@ index
 		{% for item in category.items.all %}
 		<li>
 			<a href="">
-				<img src="{{item.dish.image}}">
-				<i>{{item.dish.title}}</i>
+				<img src="{{item.image}}">
+				<i>{{item.title}}</i>
 			</a>
 			
 		</li>

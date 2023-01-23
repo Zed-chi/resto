@@ -1,27 +1,79 @@
 {% extends "base.html"  %}
 
 {% block title %}
-cook				
+Список заказов для кухни			
 {% endblock %}
 
 {% block content %}
-	<ul>
-		{% for order in orders %}
-			<li>
-				<ul>
-					{% for item in order.items %}
-					<li>
-						<p>
-							<b>{{item.title}}</b>
-							<p>{{item.description}}</p>
-							<button><a href="">Готов</a></button>
-							<button><a href="">Рецепт</a></button>
-						</p>
-					</li>
-					{% endfor %}	
-				</ul>
-				
-			</li>
+<h3>Ожидают</h3>
+<table class="table-striped mb-3">
+	<thead class="bg-light">
+		<th>Название</th>
+		<th>Предпочтение</th>
+		<th>Количество</th>
+		<th>Статус</th>
+		<th>Справка</th>
+		<th>Отдать</th>
+	</thead>
+	<tbody>
+		{% for item in waiting_items %}
+		<tr>
+			<td>{{item.dish.title}}</td>
+			<td>{{item.dish.notes}}</td>
+			<td>{{item.quantity}}</td>
+			<td>{{item.get_status_display}}</td>
+			<td>
+				{% if item.dish.recipe.id %}
+				<button><a href="/cooks/recipe/{{item.dish.recipe.id}}">Рецепт</a></button>
+				{% endif %}							
+			</td>
+			<td><button><a href="/kitchen/items/{{item.id}}/got_cooked/">Готов</a></button></td>
+		</tr>
 		{% endfor %}
-	</ul>
-{% endblock %}
+	</tbody>
+</table>
+
+<h3>Готовятся</h3>
+<table class="table-striped  mb-3">
+	<thead  class="bg-warning">
+		<th>Название</th>
+		<th>Предпочтение</th>
+		<th>Количество</th>
+		<th>Статус</th>
+		<th>Справка</th>
+		<th>Отдать</th>
+	</thead>
+	<tbody>
+		{% for item in cooking_items %}
+		<tr>
+			<td>{{item.dish.title}}</td>
+			<td>{{item.dish.notes}}</td>
+			<td>{{item.quantity}}</td>
+			<td>{{item.get_status_display}}</td>
+			<td>
+				{% if item.dish.recipe.id %}
+				<button><a href="/cooks/recipe/{{item.dish.recipe.id}}">Рецепт</a></button>
+				{% endif %}							
+			</td>
+			<td><button><a href="/kitchen/items/{{item.id}}/got_cooked/">Готов</a></button></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h3>На вынос</h3>
+<table class="table-striped  mb-3">
+	<thead class="bg-success">
+		<th>Название</th>		
+		<th>Количество</th>
+	</thead>
+	<tbody>
+		{% for item in finished_items %}
+		<tr>
+			<td>{{item.dish.title}}</td>			
+			<td>{{item.quantity}}</td>					
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}      

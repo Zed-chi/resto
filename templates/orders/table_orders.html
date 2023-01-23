@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<h3>Table #{{table.number}} orders: <div class="badge">{{table.orders.all.count}}</div></h3>
-	{% for order in table.orders.all %}
+	<h3>Заказов для стола #{{table.number}}: <div class="badge">{{orders.all.count}}</div></h3>
+	{% for order in orders.all %}
 	<div class="order card my-3 p-1">
 		<div class="card-header">
 			<div class="row">
 				<div class="col-md-9">
-					Order #{{order.id}}: <div class="badge">{{order.items.all.count}}</div> items		
+					Заказ #{{order.id}}: <div class="badge">{{order.items.all.count}}</div> блюд		
 				</div>
 
-				<div class="btn-group col-md-3">					<form action="/orders/{{order.id}}/pay" method="post">
-						{% csrf_token %}
+				<div class="btn-group col-md-3">					
+					<form action="/orders/{{order.id}}/pay" method="get">						
 						<input type="submit" value="pay" class="btn btn-success" >	    
 					</form>										
 					<form action="/orders/{{order.id}}/cook" method="post">
@@ -28,15 +28,29 @@
 		<div class="card-body">
 			<ul class="list-group">
 			 	{% for item in order.items.all %}
-			 	<li class="list-group-item">	        	
-		            {{item.menu_item.title}} x <b>{{item.quantity}}</b> [<i>{{item.price}}</i>$]	
+			 	<li class="list-group-item">
+			 		<div class="row">
+			 			<div class="col-md-10">
+				 			[{{item.get_status_display}}]-{{item.dish.title}} x <b>{{item.quantity}}</b> [<i>{{item.price}}</i>$]
+				 		</div>
+				 		<div class="col-md-2">
+				 			{% if item.status == '4' %}
+				 				<form action="/orders/items/{{item.id}}/deliver/" method="post">
+									{% csrf_token %}
+									<input type="submit" value="☑" class="btn btn-success" >	    
+								</form>
+							{% elif item.status == '5' %}
+								☑
+				 			{% endif %}
+				 		</div>
+			 		</div>			 					 				            
 		        </li>
 		        {% endfor %}    	 
 			</ul>        	
 		</div>
   		<div class="card-footer">
 	  		<details>
-		    	<summary>Add new item in order</summary>
+		    	<summary>Добавить новое блюдо в заказ</summary>
 		    	<form action="/orders/{{order.id}}" 
 		    		method="post" class="card p-3" 
 		    	>		
@@ -57,7 +71,7 @@
 	>		
 		{% csrf_token %}						      
 		{{ order_form.as_p }}
-		<input type="submit" class="form-control"  value="+ Add new order">	    	
+		<input type="submit" class="form-control"  value="+ Добавить заказ">
 	</form>
 {% endblock %}
 

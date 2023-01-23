@@ -1,17 +1,71 @@
 {% extends "base.html" %}
 
 {% block content %}		
-    <div class="card">
-		<div class="card-header">Room tables</div>
+    <div class="card mb-3">
+		<div class="card-header">Столы</div>
 		<div class="card-body room-tables">
 	        {% for table in tables %}
 				<a href="/orders/table/{{table.id}}">{{table.number}}</a>
 			{% endfor %}  
 		</div>
 		<div class="card-footer p-1">
-			<a href="./waitlist" class="btn form-control btn-primary">К списку ожидания</a>
+			<a href="./waitlist/" class="btn form-control btn-primary">К списку ожидания</a>
 		</div>
 	</div>
 
+	<div class="card">
+	  	<div class="card-header">
+	  		Статус ожидания заказов
+	  	</div>
+
+  		<div class="card-body">
+  			<div class="list-group">
+			</div> 	
+  		</div>
+	</div>	
+<script>
+	/*
+        {
+            "table":"finished_dish",        
+            "title":"waiting_dish",            
+            "quantity":"3",
+            "status":"waiting",            
+        }
+    */               
+function create_element(data){
+	console.log(data);
+    var span = document.createElement("span");
+    span.setAttribute("class", "list-group-item list-group-item-action");
+    span.innerHTML = `Cтол #<b>${data["table"]}</b> - ${data["title"]} x ${data["quantity"]} - [${data["status"]}]`;       
+    return span;
+}
+
+
+function update_list(data){
+    var list = document.querySelector(".list-group");       
+    list.innerHTML = "";
+    for (var item of data["items"]){
+        var el = create_element(item);
+        if (item["status"] == "finished"){
+        	el.classList.add("bg-success");
+        } else if (item["status"] == "cooking"){
+        	el.classList.add("bg-warning");
+        }
+        list.appendChild(el);
+    }    
+}
+
+function fetch_list(){
+    fetch("/orders/test_json")
+    .then(res=>res.json())
+    .then(data=>update_list(data))
+    .catch(e=>console.log(e))
+}
+setInterval(
+    fetch_list,
+    5000    
+);
+fetch_list();
+</script>
 		
 {% endblock %}

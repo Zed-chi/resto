@@ -1,27 +1,54 @@
 {% extends "base.html" %}
 
-{% block content %}
-	{% for order in orders%}
-		<div class="card">
-		  	<div class="card-header">
-		  		#{{order.id}} for 
-	        	<span class="badge badge-light">
-	        		{{order.table.number}}
-	        	</span> table	
-		  	</div>
+{% block content %}	
+	<div class="card">
+	  	<div class="card-header">
+	  		Статус ожидания заказов
+	  	</div>
 
-	  		<div class="card-body">
-	  			<div class="list-group">
-		         	{% for item in order.items.all %}
-						<span 
-						class="list-group-item list-group-item-action"
-						>
-						{{item.menu_item.title}} x {{item.quantity}} - [{{item.get_status_display}}]
-						</span>
+  		<div class="card-body">
+  			<div class="list-group">
 
-					{% endfor %}   	  
-				</div> 	
-	  		</div>
-		</div>
-	{% endfor %}
+			</div> 	
+  		</div>
+	</div>	
+<script>
+	/*
+        {
+            "table":"finished_dish",        
+            "title":"waiting_dish",            
+            "quantity":"3",
+            "status":"waiting",            
+        }
+    */               
+function create_element(data){
+	console.log(data);
+    var span = document.createElement("span");
+    span.setAttribute("class", "list-group-item list-group-item-action");
+    span.innerHTML = `Cтол #<b>${data["table"]}</b> - ${data["title"]} x ${data["quantity"]} - [${data["status"]}]`;       
+    return span;
+}
+
+
+function update_list(data){
+    var list = document.querySelector(".list-group");       
+    list.innerHTML = "";
+    for (var item of data["items"]){
+        var el = create_element(item);
+        list.appendChild(el);
+    }    
+}
+
+function fetch_list(){
+    fetch("/orders/test_json")
+    .then(res=>res.json())
+    .then(data=>update_list(data))
+    .catch(e=>console.log(e))
+}
+setInterval(
+    fetch_list,
+    5000    
+);
+fetch_list();
+</script>
 {% endblock %}

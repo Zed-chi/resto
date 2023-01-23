@@ -1,28 +1,152 @@
 {% extends "base.html"  %}
 
 {% block title %}
-cook				
+Список заказов для кухни			
 {% endblock %}
 
 {% block content %}
-<table class="table-striped">
-	<thead>
+<h3>Ожидают</h3>
+<table class="table-striped mb-3" id="waiting">
+	<thead class="bg-light">
 		<th>Название</th>
 		<th>Предпочтение</th>
 		<th>Количество</th>
+		<th>Статус</th>
 		<th>Справка</th>
 		<th>Отдать</th>
 	</thead>
 	<tbody>
-		{% for item in items %}
-		<tr>
-			<td>{{item.menu_item.title}}</td>
-			<td>{{item.menu_item.notes}}</td>
-			<td>{{item.quantity}}</td>
-			<td><button><a href="/cooks/recipe/{{item.menu_item.dish.recipe}}">Рецепт</a></button></td>
-			<td><button><a href="">Готов</a></button></td>
-		</tr>
-		{% endfor %}
+
 	</tbody>
 </table>
+
+<h3>Готовятся</h3>
+<table class="table-striped  mb-3" id="cooking">
+	<thead  class="bg-warning">
+		<th>Название</th>
+		<th>Предпочтение</th>
+		<th>Количество</th>
+		<th>Статус</th>
+		<th>Справка</th>
+		<th>Отдать</th>
+	</thead>
+	<tbody>
+
+	</tbody>
+</table>
+
+<h3>На вынос</h3>
+<table class="table-striped  mb-3" id="finished">
+	<thead class="bg-success">
+		<th>Название</th>		
+		<th>Количество</th>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<script>
+	/*
+        {
+            "title":"finished_dish",
+            "quantity":1,
+        }
+        {
+            "title":"waiting_dish",
+            "notes":"spicy",
+            "quantity":"3",
+            "status":"waiting",
+            "recipe_id":"2",
+            "id":"2",
+        }
+    */               
+function get_btn(url, text){
+    var btn = document.createElement("button");
+    var a = document.createElement("a");
+    a.innerText = (text);
+    a.setAttribute("href", url);
+    btn.appendChild(a);
+    return btn;
+}
+
+
+function create_short_element(data){
+    var row = document.createElement("tr");
+    var title = document.createElement("td");
+    var quantity = document.createElement("td");
+    title.innerText = (data["title"]);
+    quantity.innerText = (data["quantity"]);
+    row.appendChild(title);
+    row.appendChild(quantity);
+    return row;
+}
+
+
+function create_full_element(data){
+    var row = document.createElement("tr");
+    var title = document.createElement("td");
+    var notes = document.createElement("td");
+    var quantity = document.createElement("td");
+    var status = document.createElement("td");
+    var recipe_btn = document.createElement("td");
+    var finished_btn = document.createElement("td");
+    title.innerText = (data["title"]);
+    notes.innerText = (data["notes"]);
+    quantity.innerText = (data["quantity"]);
+    status.innerText = (data["status"]);
+
+    recipe_btn.appendChild(
+        get_btn(`/cooks/recipe/${data['recipe_id']}`, "Рецепт")
+    );
+    finished_btn.appendChild(
+        get_btn(`/kitchen/items/${data['id']}/got_cooked/`, "Готов")
+    );
+    row.appendChild(title);
+    row.appendChild(notes);
+    row.appendChild(quantity);
+    row.appendChild(status);
+    row.appendChild(recipe_btn);
+    row.appendChild(finished_btn);
+    return row;
+}
+
+
+function update_table(data){
+    var f_t = document.querySelector("#finished tbody");
+    var w_t = document.querySelector("#waiting tbody");
+    var c_t = document.querySelector("#cooking tbody");
+    
+    f_t.innerHTML = "";
+    for (var item of data["finished"]){
+        var row = create_short_element(item);
+        f_t.appendChild(row);
+    }
+
+    w_t.innerHTML = "";
+    for (var item of data["waiting"]){
+        var row = create_full_element(item);
+        w_t.appendChild(row);
+    }
+
+    c_t.innerHTML = "";
+    for (var item of data["cooking"]){
+        var row = create_full_element(item);
+        c_t.appendChild(row);
+    }
+    
+}
+
+function update_page_data(){
+        fetch("/kitchen/test_json")
+        .then(res=>res.json())
+        .then(data=>update_table(data))
+        .catch(e=>console.log(e))
+    }
+setInterval(
+    update_page_data,
+    5000    
+);
+
+update_page_data();
+</script>
 {% endblock %}      

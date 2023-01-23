@@ -19,21 +19,21 @@ class OrderItem(models.Model):
     STATUSES = [
         (
             "1",
-            "draft",
+            "Черновик",
         ),
         (
             "2",
-            "waiting",
+            "В ожидании",
         ),
         (
             "3",
-            "cooking",
+            "Готовится",
         ),
         (
             "4",
-            "finished",
+            "Готово",
         ),
-        ("5", "delivered"),
+        ("5", "Доставлено"),
     ]
     price = models.DecimalField(decimal_places=2, max_digits=10)
     dish = models.ForeignKey(
@@ -46,3 +46,6 @@ class OrderItem(models.Model):
     status = models.CharField(choices=STATUSES, max_length=50, default="1")
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    started_to_cook = models.DateTimeField(
+        auto_now_add=False, null=True, blank=True
+    )
