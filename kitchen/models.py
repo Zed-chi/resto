@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -27,10 +28,16 @@ class Dish(models.Model):
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.category.title} - {self.dish.title}"
+        return f"{self.category.title} - {self.title}"
 
     def get_total_callories(self):
         pass
+
+    def get_minutes_to_cook(self):
+        try:
+            self.recipe.time_to_cook
+        except Dish.recipe.RelatedObjectDoesNotExist:
+            return settings.DEFAULT_MINUTES_TO_COOK
 
 
 class Ingredient(models.Model):
@@ -49,8 +56,11 @@ class CalorieItem(models.Model):
 
 class Recipe(models.Model):
     title = models.CharField(max_length=255)
-    dish = models.ForeignKey(
+    dish = models.OneToOneField(
         Dish, on_delete=models.CASCADE, related_name="recipe"
+    )
+    minutes_to_cook = models.IntegerField(
+        default=settings.DEFAULT_MINUTES_TO_COOK
     )
 
     def __str__(self):
