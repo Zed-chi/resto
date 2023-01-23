@@ -7,6 +7,7 @@ urlpatterns = [
     path(
         "table/<table_id>", views.table_orders_list, name="table_orders_list"
     ),
+    path("test_json", views.test_json, name="test_json"),
     path("<order_id>/pay", views.pay_order, name="pay_order"),
     path("<order_id>/remove", views.remove_order, name="remove_order"),
     path(
@@ -15,5 +16,8 @@ urlpatterns = [
         name="transfer_order_to_cook",
     ),
     path("<order_id>", views.order_item_create, name="order_item_create"),
-    path("", views.index, name="index"),
+    path(
+        "items/<item_id>/deliver/", views.deliver_item, name="item_delivered"
+    ),
+    path("", views.index, name="orders_index"),
 ]
