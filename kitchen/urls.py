@@ -10,4 +10,5 @@ urlpatterns = [
         views.order_item_cooked,
         name="item_finished",
     ),
+    path("test_json", views.test_json),
 ]
