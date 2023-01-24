@@ -38,6 +38,7 @@ DEFAULT_MINUTES_TO_COOK = 30
 
 # Application definition
 APPEND_SLASH = False
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
