@@ -46,9 +46,9 @@ function update_list(data){
     list.innerHTML = "";
     for (var item of data["items"]){
         var el = create_element(item);
-        if (item["status"] == "finished"){
+        if (item["status"] == "Готово"){
         	el.classList.add("bg-success");
-        } else if (item["status"] == "cooking"){
+        } else if (item["status"] == "Готовится"){
         	el.classList.add("bg-warning");
         }
         list.appendChild(el);
