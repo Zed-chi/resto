@@ -5,25 +5,60 @@
 {% endblock %}
 
 {% block content %}
+<article class="jumbotron" id="home">
+	<div class="row">
+		<div class="col-12 align-middle text-center" style="font-size:90px">
+			the<br>Cafe
+		</div>	
+	</div>
+	<div class="row">
+		<div class="col-6 text-left">
+			<span class="badge badge-secondary">Open from 6am to 5pm</span>		
+		</div>		
+		<div class="col-6 text-right">
+			<span class="badge badge-secondary">15 Adr street, 5015</span>
+		</div>		
+	</div>    
+</article>
 
-{% for menu in menus %}
-<figure>
-	<legend>{{menu.title}}</legend>
-	{% for category in menu.categories.all %}	
-	<span>{{category.title}}</span>
-	<ul>
-		{% for item in category.items.all %}
-		<li>
-			<a href="">
-				<img src="{{item.image}}">
-				<i>{{item.title}}</i>
-			</a>
-			
-		</li>
+
+<!-- Menu Container -->
+<div class="container mb-6" id="menu">  
+	{% for menu in menus %}
+	<h5 class="text-center p-3">
+    	<span class="badge badge-secondary">{{menu.title}} меню</span>
+    </h5>    
+  	
+		{% for category in menu.categories.all %}	
+    	<div class="w3-row w3-center w3-card w3-padding">
+
+		<details>
+			<summary>{{category.title}}</summary>
+			<div class="list-group">
+				{% for item in category.items.all %}
+				<div class="list-item">
+					<a href="">
+						<img src="{{item.image}}">
+						<i>{{item.title}}</i>
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+		</details> 
 		{% endfor %}
-	</ul>
-	<hr>
-	{% endfor %}	
-</figure>
-{% endfor %}	
+    </div> 
+    {% endfor %}
+</div>
+
+<!-- About Container -->
+<article class="container" id="about">  
+    <h5 class="text-center p-3">
+    	<span class="badge badge-secondary">ABOUT THE CAFE</span>
+    </h5>
+
+    <p>The Cafe was founded in blabla by Mr. Smith </p>
+    
+
+</article>
+
 {% endblock %}
