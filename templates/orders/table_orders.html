@@ -6,17 +6,17 @@
 	<div class="order card my-3 p-1">
 		<div class="card-header">
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-7">
 					Заказ #{{order.id}}: <div class="badge">{{order.items.all.count}}</div> блюд		
 				</div>
 
-				<div class="btn-group col-md-3">					
+				<div class="btn-group col-md-5">					
 					<form action="/orders/{{order.id}}/pay" method="get">						
-						<input type="submit" value="pay" class="btn btn-success" >	    
+						<input type="submit" value="Оплатить" class="btn btn-success" >	    
 					</form>										
 					<form action="/orders/{{order.id}}/cook" method="post">
 						{% csrf_token %}
-						<input type="submit" value="cook" class="btn btn-warning" >	    
+						<input type="submit" value="Передать кухне" class="btn btn-warning" >	    
 					</form>							
 					<form action="/orders/{{order.id}}/remove" method="post">
 						{% csrf_token %}
@@ -59,7 +59,7 @@
 						{{ item_form.as_p }}	
 					</div>
 					
-					<input type="submit" value="save" class="form-control bg-primary text-white" >	    	
+					<input type="submit" value="Добавить в заказ" class="form-control bg-primary text-white" >	    	
 				</form>
 		    </details>
   		</div>				 	           	            
