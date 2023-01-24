@@ -4,7 +4,7 @@ from .models import Order, OrderItem
 
 
 class OrderItemForm(forms.ModelForm):
-    quantity = forms.IntegerField(min_value=1, initial=1)
+    quantity = forms.IntegerField(min_value=1, initial=1, label="Количество")
 
     class Meta:
         model = OrderItem
@@ -15,6 +15,10 @@ class OrderItemForm(forms.ModelForm):
                 attrs={"class": "form-control", "rows": "2"}
             ),
             "quantity": forms.NumberInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "dish": "Блюдо",
+            "notes": "Предпочтения",
         }
 
 
