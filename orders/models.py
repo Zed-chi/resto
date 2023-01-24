@@ -10,9 +10,18 @@ class Order(models.Model):
     )
     is_completed = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def price(self):
         return sum(map(lambda x: x.price * x.quantity, self.items))
+
+
+    def __str__(self):
+        if hasattr(self, "created_at"):
+            stamp = self.created_at.strftime("%Y-%m-%d %H:%M")
+            return f"Стол №{self.table.number} - {stamp}"
+        else:
+            return f"Стол №{self.table.number} - {self.id}"
 
 
 class OrderItem(models.Model):
@@ -47,5 +56,8 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     started_to_cook = models.DateTimeField(
+        auto_now_add=False, null=True, blank=True
+    )
+    estimated_finish_time = models.DateTimeField(
         auto_now_add=False, null=True, blank=True
     )

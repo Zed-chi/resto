@@ -137,6 +137,7 @@ def test_json(req):
             "title": i.dish.title,
             "quantity": i.quantity,
             "status": i.get_status_display(),
+            "estimated_timestamp":i.estimated_finish_time.strftime("%H:%M"),
         }
         for i in items
     ]
