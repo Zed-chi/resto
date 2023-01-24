@@ -18,14 +18,20 @@
             "table":"finished_dish",        
             "title":"waiting_dish",            
             "quantity":"3",
-            "status":"waiting",            
+            "status":"waiting",
+            "estimated_timestamp"
         }
     */               
 function create_element(data){
 	console.log(data);
     var span = document.createElement("span");
-    span.setAttribute("class", "list-group-item list-group-item-action");
-    span.innerHTML = `Cтол #<b>${data["table"]}</b> - ${data["title"]} x ${data["quantity"]} - [${data["status"]}]`;       
+    span.setAttribute("class", "list-group-item list-group-item-action");    
+    var text = `Cтол #<b>${data["table"]}</b> - ${data["title"]} x ${data["quantity"]} - [${data["status"]}]`;
+
+    if (data["status"] != "Готово"){
+        text += ", будет готово ~ "+ data["estimated_timestamp"];
+    }
+    span.innerHTML = text;
     return span;
 }
 
@@ -35,8 +41,13 @@ function update_list(data){
     list.innerHTML = "";
     for (var item of data["items"]){
         var el = create_element(item);
+        if (item["status"] == "Готово"){
+        	el.classList.add("bg-success");
+        } else if (item["status"] == "Готовится"){
+        	el.classList.add("bg-warning");
+        }
         list.appendChild(el);
-    }    
+    }       
 }
 
 function fetch_list(){
