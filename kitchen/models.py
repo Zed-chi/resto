@@ -35,7 +35,7 @@ class Dish(models.Model):
 
     def get_minutes_to_cook(self):
         try:
-            self.recipe.time_to_cook
+            return self.recipe.minutes_to_cook
         except Dish.recipe.RelatedObjectDoesNotExist:
             return settings.DEFAULT_MINUTES_TO_COOK
 
@@ -54,8 +54,7 @@ class CalorieItem(models.Model):
     by_weight = models.DecimalField(decimal_places=3, max_digits=6)
 
 
-class Recipe(models.Model):
-    title = models.CharField(max_length=255)
+class Recipe(models.Model):    
     dish = models.OneToOneField(
         Dish, on_delete=models.CASCADE, related_name="recipe"
     )
@@ -64,7 +63,7 @@ class Recipe(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return self.dish.title
 
 
 class RecipeIngridient(models.Model):
